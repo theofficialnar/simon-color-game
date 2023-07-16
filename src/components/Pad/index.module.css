@@ -17,7 +17,7 @@
   padding: 6px;
 }
 
-.padContainer .pad:hover,
+.padContainer .pad:active,
 .padContainer .pad.active {
   filter: grayscale(80%);
 }
