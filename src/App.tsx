@@ -5,17 +5,7 @@ import { Pad, Colors } from "./components/Pad";
 import { Score } from "./components/Score";
 
 function App() {
-  const [activePad, setActivePad] = useState<Colors | null>(null);
-  const [padOrder, setPadOrder] = useState<Colors[]>([
-    "green",
-    "green",
-    "red",
-    "blue",
-    "red",
-    "yellow",
-    "green",
-  ]);
-  const [activePadIndex, setActivePadIndex] = useState(0);
+  const [padOrder, setPadOrder] = useState<Colors[]>([]);
 
   const generateRandomPad = (): Colors => {
     const Pads: Colors[] = ["yellow", "blue", "green", "red"];
@@ -23,17 +13,17 @@ function App() {
     return Pads[Math.floor(Math.random() * Pads.length)];
   };
 
+  const startGame = () => {
+    setPadOrder([...padOrder, generateRandomPad()]);
+  };
+
   return (
     <div className={styles.wrapper}>
       <header>
         <h1>Simon Color Game!</h1>
       </header>
-      <Pad
-        onButtonPress={() => {}}
-        activePads={padOrder}
-        activePad={activePad}
-      />
-      <Score />
+      <Pad onButtonPress={() => {}} activePads={padOrder} />
+      <Score onStartGame={startGame} />
     </div>
   );
 }

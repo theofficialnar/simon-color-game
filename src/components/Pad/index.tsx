@@ -1,4 +1,4 @@
-import { FC, useRef, createRef, LegacyRef, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import styles from "./index.module.css";
 
@@ -23,13 +23,16 @@ const BUTTONS: Readonly<Button[]> = [
 
 interface Props {
   onButtonPress: () => void;
-  activePad: Colors | null;
   activePads: Colors[];
 }
 export const Pad: FC<Readonly<Props>> = ({ activePads }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    if (!activePads?.length) {
+      return;
+    }
+
     const element = document.getElementById(activePads[activeIndex]);
     const addTimerId = setTimeout(() => {
       element?.classList.add(styles.active);
@@ -37,7 +40,9 @@ export const Pad: FC<Readonly<Props>> = ({ activePads }) => {
     const removeTimerId = setTimeout(() => {
       element?.classList.remove(styles.active);
 
-      setActiveIndex(activeIndex + 1);
+      if (activePads.length < activeIndex) {
+        setActiveIndex(activeIndex + 1);
+      }
     }, 1000);
 
     return () => {

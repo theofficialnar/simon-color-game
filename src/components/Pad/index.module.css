@@ -41,15 +41,3 @@
   background-color: yellow;
   border-radius: 0 0 100% 0;
 }
-
-@keyframes activate {
-  0% {
-    filter: grayscale(0%);
-  }
-  50% {
-    filter: grayscale(50%);
-  }
-  100% {
-    filter: grayscale(0%);
-  }
-}
