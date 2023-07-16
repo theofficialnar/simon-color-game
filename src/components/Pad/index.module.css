@@ -1,0 +1,55 @@
+.padContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* border: 6px solid black; */
+  height: 100%;
+  background-color: black;
+  gap: 6px;
+  padding: 6px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  overflow: hidden;
+  width: min(700px, 100dvw);
+  margin: 0 auto;
+}
+
+.padContainer .pad {
+  padding: 6px;
+}
+
+.padContainer .pad:hover,
+.padContainer .pad.active {
+  filter: grayscale(80%);
+}
+
+.padContainer .pad.green {
+  background-color: green;
+  border-radius: 100% 0 0 0;
+}
+
+.padContainer .pad.red {
+  background-color: red;
+  border-radius: 0 0 0 100%;
+}
+
+.padContainer .pad.blue {
+  background-color: blue;
+  border-radius: 0 100% 0 0;
+}
+
+.padContainer .pad.yellow {
+  background-color: yellow;
+  border-radius: 0 0 100% 0;
+}
+
+@keyframes activate {
+  0% {
+    filter: grayscale(0%);
+  }
+  50% {
+    filter: grayscale(50%);
+  }
+  100% {
+    filter: grayscale(0%);
+  }
+}
