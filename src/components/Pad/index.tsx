@@ -22,10 +22,15 @@ const BUTTONS: Readonly<Button[]> = [
 ];
 
 interface Props {
-  onButtonPress: () => void;
+  onButtonPress: (color: Colors) => void;
   activePads: Colors[];
+  enablePlayerInput: boolean;
 }
-export const Pad: FC<Readonly<Props>> = ({ activePads }) => {
+export const Pad: FC<Readonly<Props>> = ({
+  activePads,
+  enablePlayerInput,
+  onButtonPress,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -39,8 +44,7 @@ export const Pad: FC<Readonly<Props>> = ({ activePads }) => {
     }, 500);
     const removeTimerId = setTimeout(() => {
       element?.classList.remove(styles.active);
-
-      if (activePads.length < activeIndex) {
+      if (activeIndex < activePads.length) {
         setActiveIndex(activeIndex + 1);
       }
     }, 1000);
@@ -51,13 +55,26 @@ export const Pad: FC<Readonly<Props>> = ({ activePads }) => {
     };
   }, [activePads, activeIndex]);
 
+  useEffect(() => {
+    if (!enablePlayerInput) {
+      setActiveIndex(0);
+    }
+  }, [enablePlayerInput]);
+
+  const enabled = enablePlayerInput && activeIndex === activePads?.length;
+
   return (
     <div className={styles.padContainer}>
       {BUTTONS.map((button) => (
         <div
           id={button.color}
           key={button.color}
-          className={`${styles.pad} ${styles[button.color]}`}
+          className={`${styles.pad} ${styles[button.color]} ${
+            !enabled && styles.disabled
+          }`}
+          onClick={() => {
+            enabled && onButtonPress(button.color);
+          }}
         ></div>
       ))}
     </div>
