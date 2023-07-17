@@ -23,13 +23,17 @@ const BUTTONS: Readonly<Button[]> = [
 
 interface Props {
   onButtonPress: (color: Colors) => void;
+  onStartGame: () => void;
   activePads: Colors[];
   enablePlayerInput: boolean;
+  enableStartButton: boolean;
 }
 export const Pad: FC<Readonly<Props>> = ({
   activePads,
   enablePlayerInput,
   onButtonPress,
+  enableStartButton,
+  onStartGame,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -65,7 +69,9 @@ export const Pad: FC<Readonly<Props>> = ({
 
   return (
     <div className={styles.padContainer}>
-      <div className={styles.centerCircle}></div>
+      <div className={styles.centerCircle}>
+        {enableStartButton && <button onClick={onStartGame}>Start!</button>}
+      </div>
       {BUTTONS.map((button) => (
         <div
           id={button.color}

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import styles from "./App.module.css";
 import { Pad, Colors } from "./components/Pad";
-import { Score } from "./components/Score";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState(false);
@@ -62,26 +61,36 @@ function App() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <header>
-        <h1>Let's Play Simon!</h1>
-      </header>
-      <Pad
-        onButtonPress={(color) => {
-          if (userInput.length < correctPadOrder.length) {
-            setUserInput([...userInput, color]);
-          }
-        }}
-        activePads={correctPadOrder}
-        enablePlayerInput={turn === "player"}
-      />
-      <Score
-        onStartGame={startGame}
-        disableStartButton={correctPadOrder?.length > 0}
-        isGameOver={isGameOver}
-        score={score}
-      />
-    </div>
+    <main>
+      <div className={styles.wrapper}>
+        <header>
+          <h1>Let's Play Simon!</h1>
+          <h2>Level: {score}</h2>
+          {isGameOver && <h2 className={styles.gameOver}>Game Over!</h2>}
+        </header>
+        <Pad
+          onButtonPress={(color) => {
+            if (userInput.length < correctPadOrder.length) {
+              setUserInput([...userInput, color]);
+            }
+          }}
+          activePads={correctPadOrder}
+          enablePlayerInput={turn === "player"}
+          onStartGame={startGame}
+          enableStartButton={!isGameStarted}
+        />
+      </div>
+      <footer>
+        Made by Nar Cuenca |&nbsp;
+        <a
+          href="https://github.com/theofficialnar/simon-color-game"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Github
+        </a>
+      </footer>
+    </main>
   );
 }
 
