@@ -1,11 +1,10 @@
 .padContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* border: 6px solid black; */
   height: 100%;
   background-color: black;
-  gap: 6px;
-  padding: 6px;
+  gap: 40px;
+  padding: 40px;
   box-sizing: border-box;
   border-radius: 50%;
   overflow: hidden;
@@ -27,6 +26,11 @@
 .padContainer .pad:active,
 .padContainer .pad.active {
   filter: grayscale(80%);
+}
+
+.padContainer .pad.yellow:active,
+.padContainer .pad.yellow.active {
+  filter: contrast(20%);
 }
 
 .padContainer .pad.green {
