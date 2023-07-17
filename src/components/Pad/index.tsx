@@ -65,6 +65,7 @@ export const Pad: FC<Readonly<Props>> = ({
 
   return (
     <div className={styles.padContainer}>
+      <div className={styles.centerCircle}></div>
       {BUTTONS.map((button) => (
         <div
           id={button.color}

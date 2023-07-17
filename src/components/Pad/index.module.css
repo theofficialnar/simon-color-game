@@ -10,6 +10,21 @@
   overflow: hidden;
   width: min(700px, 100dvw);
   margin: 0 auto;
+  position: relative;
+  box-shadow: 14px 14px 13px 4px #718e5d;
+}
+
+.padContainer .centerCircle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #151515;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  box-shadow: 0px 0px 20px 6px rgba(0, 0, 0, 0.6);
 }
 
 .padContainer .pad {
@@ -36,19 +51,23 @@
 .padContainer .pad.green {
   background-color: green;
   border-radius: 100% 0 0 0;
+  box-shadow: 0px 0px 25px 4px rgba(0, 255, 0, 0.6);
 }
 
 .padContainer .pad.red {
   background-color: red;
   border-radius: 0 0 0 100%;
+  box-shadow: 0px 0px 30px 4px rgba(255, 0, 0, 0.6);
 }
 
 .padContainer .pad.blue {
   background-color: blue;
   border-radius: 0 100% 0 0;
+  box-shadow: 0px 0px 40px 4px rgba(0, 0, 255, 0.6);
 }
 
 .padContainer .pad.yellow {
   background-color: yellow;
   border-radius: 0 0 100% 0;
+  box-shadow: 0px 0px 35px 4px rgba(255, 255, 0, 0.6);
 }

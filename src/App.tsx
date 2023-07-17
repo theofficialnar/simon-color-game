@@ -64,7 +64,7 @@ function App() {
   return (
     <div className={styles.wrapper}>
       <header>
-        <h1>Simon Color Game!</h1>
+        <h1>Let's Play Simon!</h1>
       </header>
       <Pad
         onButtonPress={(color) => {
