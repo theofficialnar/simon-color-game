@@ -6,6 +6,8 @@ import { Score } from "./components/Score";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [score, setScore] = useState(0);
   const [correctPadOrder, setCorrectPadOrder] = useState<Colors[]>([]);
   const [userInput, setUserInput] = useState<Colors[]>([]);
   const [turn, setTurn] = useState<"player" | "gamemaster">("gamemaster");
@@ -24,17 +26,31 @@ function App() {
   }, [userInput]);
 
   useEffect(() => {
+    if (
+      !isGameStarted ||
+      turn !== "gamemaster" ||
+      correctPadOrder.length !== userInput.length
+    ) {
+      return;
+    }
+
+    if (JSON.stringify(correctPadOrder) !== JSON.stringify(userInput)) {
+      setIsGameStarted(false);
+      setCorrectPadOrder([]);
+      setUserInput([]);
+      setTurn("gamemaster");
+      setScore(0);
+      setIsGameOver(true);
+      return;
+    }
+
+    setScore(score + 1);
+
     // Adds a new color when the player successfuly finishes their turn
     setTimeout(() => {
-      if (
-        isGameStarted &&
-        turn === "gamemaster" &&
-        correctPadOrder.length === userInput.length
-      ) {
-        setCorrectPadOrder([...correctPadOrder, generateRandomPad()]);
-        setTurn("player");
-        setUserInput([]);
-      }
+      setCorrectPadOrder([...correctPadOrder, generateRandomPad()]);
+      setTurn("player");
+      setUserInput([]);
     }, 1000);
   }, [turn]);
 
@@ -42,6 +58,7 @@ function App() {
     setCorrectPadOrder([...correctPadOrder, generateRandomPad()]);
     setTurn("player");
     setIsGameStarted(true);
+    setIsGameOver(false);
   };
 
   return (
@@ -61,6 +78,8 @@ function App() {
       <Score
         onStartGame={startGame}
         disableStartButton={correctPadOrder?.length > 0}
+        isGameOver={isGameOver}
+        score={score}
       />
     </div>
   );
